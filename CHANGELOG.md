@@ -1,5 +1,66 @@
 # CHANGELOG
 
+## v0.11.0
+
+*Feb 7, 2024*
+
+This release adds support for explicit compaction. Please note that badger and
+bolt do not support this.
+
+### BREAKING CHANGES
+
+- Expanded db interface to support compaction ([\#111](https://github.com/cometbft/cometbft-db/pull/111))
+
+### FEATURES
+
+- Add compaction support to the databases ([\#111](https://github.com/cometbft/cometbft-db/pull/111))
+
+## v0.10.0
+
+*Jan 26, 2024*
+
+This release adds experimental support for
+[pebble](https://github.com/cockroachdb/pebble) and drops `remotedb`. If you
+experience any issues with pebble, please open an issue on Github.
+
+Special thanks to @faddat and @baabeetaa for their contributions to this
+release!
+
+### BREAKING CHANGES
+
+- Remove remotedb ([\#121](https://github.com/cometbft/cometbft-db/pull/121))
+
+### FEATURES
+
+- Add [pebbledb](https://github.com/cockroachdb/pebble) ([\#112](https://github.com/cometbft/cometbft-db/pull/112))
+
+## v0.9.1
+
+*December 4, 2023*
+
+This release is precisely the same code-wise as v0.9.0, except that it builds
+the `cometbft/cometbft-db-testing` Docker image for both `linux/amd64` and
+`linux/arm64` platforms.
+
+## v0.9.0
+
+*December 1, 2023*
+
+This release primarily updates some key dependencies, including adding support
+for RocksDB v8. It also bumps the minimum Go version to v1.21 in order for
+CometBFT to be able to use it in the E2E testing framework for the latest major
+releases.
+
+### DEPENDENCIES
+
+- Use RocksDB v8, testing with v8.8.1
+  ([\#97](https://github.com/cometbft/cometbft-db/pull/97))
+
+### GO VERSION
+
+- Bump minimum Go version to v1.21
+  ([\#98](https://github.com/cometbft/cometbft-db/pull/98))
+
 ## v0.8.0
 
 *Apr 26, 2023*
@@ -21,10 +82,10 @@ upgrade to the latest version(s) of Go ASAP.
 
 ### DEPENDENCIES
 
-- Update to the latest version of golang.org/x/net
-  ([\#40](https://github.com/cometbft/cometbft-db/pull/40))
 - Switch rocksdb binding from gorocksdb to grocksdb, bump librocksdb dependency
   to `v7.10.2` ([\#42](https://github.com/cometbft/cometbft-db/pull/42))
+- Update to the latest version of golang.org/x/net
+  ([\#40](https://github.com/cometbft/cometbft-db/pull/40))
 
 ## v0.7.0
 

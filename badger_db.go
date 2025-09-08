@@ -12,7 +12,7 @@ import (
 	"github.com/dgraph-io/badger/v2"
 )
 
-func init() { registerDBCreator(BadgerDBBackend, badgerDBCreator, true) }
+func init() { registerDBCreator(BadgerDBBackend, badgerDBCreator) }
 
 func badgerDBCreator(dbName, dir string, opts ...*NewDatabaseOption) (DB, error) {
 	return NewBadgerDB(dbName, dir)
@@ -25,7 +25,7 @@ func NewBadgerDB(dbName, dir string) (*BadgerDB, error) {
 	// the final directory to use for the database.
 	path := filepath.Join(dir, dbName)
 
-	if err := os.MkdirAll(path, 0755); err != nil {
+	if err := os.MkdirAll(path, 0o755); err != nil {
 		return nil, err
 	}
 	opts := badger.DefaultOptions(path)
@@ -167,6 +167,11 @@ func (b *BadgerDB) ReverseIterator(start, end []byte) (Iterator, error) {
 }
 
 func (b *BadgerDB) Stats() map[string]string {
+	return nil
+}
+
+func (b *BadgerDB) Compact(start, end []byte) error {
+	// Explicit compaction is not currently supported in badger
 	return nil
 }
 

@@ -12,14 +12,12 @@ import (
 	"go.etcd.io/bbolt"
 )
 
-var (
-	bucket = []byte("tm")
-)
+var bucket = []byte("tm")
 
 func init() {
 	registerDBCreator(BoltDBBackend, func(name, dir string, opts ...*NewDatabaseOption) (DB, error) {
 		return NewBoltDB(name, dir)
-	}, false)
+	})
 }
 
 // BoltDB is a wrapper around etcd's fork of bolt (https://github.com/etcd-io/bbolt).
@@ -204,4 +202,10 @@ func (bdb *BoltDB) ReverseIterator(start, end []byte) (Iterator, error) {
 		return nil, err
 	}
 	return newBoltDBIterator(tx, start, end, true), nil
+}
+
+func (bdb *BoltDB) Compact(start, end []byte) error {
+	// There is no explicit CompactRange support in BoltDB, only a function that copies the
+	// entire DB from one place to another while doing deletions. Hence we do not support it.
+	return nil
 }

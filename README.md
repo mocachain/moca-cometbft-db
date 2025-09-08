@@ -16,9 +16,9 @@ applications built on [CometBFT], such as the [Cosmos SDK].
 totally deprecating and removing this library from CometBFT. As such, we do not
 recommend depending on this library for new projects.
 
-### Minimum Go Version
+## Minimum Go Version
 
-Go 1.20+
+Go 1.21+
 
 ## Supported Database Backends
 
@@ -46,17 +46,26 @@ Go 1.20+
   which have good performance for read-heavy workloads and range scans. Supports
   serializable ACID transactions.
 
-- **[RocksDB](https://github.com/tecbot/gorocksdb) [experimental]:** A [Go
-  wrapper](https://github.com/tecbot/gorocksdb) around
+- **[RocksDB](https://github.com/linxGnu/grocksdb) [experimental]:** A [Go
+  wrapper](https://github.com/linxGnu/grocksdb) around
   [RocksDB](https://rocksdb.org). Similarly to LevelDB (above) it uses LSM-trees
   for on-disk storage, but is optimized for fast storage media such as SSDs and
-      memory. Supports atomic transactions, but not full ACID transactions.
+  memory. Supports atomic transactions, but not full ACID transactions.
 
 - **[BadgerDB](https://github.com/dgraph-io/badger) [experimental]:** A
   key-value database written as a pure-Go alternative to e.g. LevelDB and
   RocksDB, with LSM-tree storage. Makes use of multiple goroutines for
   performance, and includes advanced features such as serializable ACID
   transactions, write batches, compression, and more.
+
+- **[PebbleDB](https://github.com/cockroachdb/pebble) [experimental]:** Pebble
+  is a LevelDB/RocksDB inspired key-value store focused on performance and
+  internal usage by CockroachDB. Pebble inherits the RocksDB file formats and a
+  few extensions such as range deletion tombstones, table-level bloom filters,
+  and updates to the MANIFEST format.
+
+  CAVEAT: there are reports of broken upgrade process when using [Cosmos
+  SDK](https://github.com/cosmos/cosmos-sdk).
 
 ## Meta-databases
 
@@ -65,11 +74,6 @@ Go 1.20+
   stored in a common underlying databases by using different namespaces. Used by
   the Cosmos SDK to give different modules their own namespaced database in a
   single application database.
-
-- **RemoteDB [experimental]:** A database that connects to distributed
-  CometBFT db instances via [gRPC](https://grpc.io/). This can help with
-  detaching difficult deployments such as LevelDB, and can also ease dependency
-  management for CometBFT developers.
 
 ## Tests
 
