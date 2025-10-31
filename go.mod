@@ -5,7 +5,7 @@ go 1.21
 require (
 	github.com/cockroachdb/pebble v1.1.0
 	github.com/dgraph-io/badger/v2 v2.2007.4
-	github.com/google/btree v1.1.2
+	github.com/google/btree v1.1.3
 	github.com/jmhodges/levigo v1.0.0
 	github.com/linxGnu/grocksdb v1.8.12
 	github.com/stretchr/testify v1.8.4
