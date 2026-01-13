@@ -12,7 +12,7 @@ import (
 )
 
 func init() {
-	dbCreator := func(name string, dir string) (DB, error) {
+	dbCreator := func(name string, dir string, opts ...*NewDatabaseOption) (DB, error) {
 		return NewPebbleDB(name, dir)
 	}
 	registerDBCreator(PebbleDBBackend, dbCreator)
@@ -125,9 +125,8 @@ func (db PebbleDB) DeleteSync(key []byte) error {
 	if len(key) == 0 {
 		return errKeyEmpty
 	}
-	err := db.db.Delete(key, pebble.Sync)
-	if err != nil {
-		return nil
+	if err := db.db.Delete(key, pebble.Sync); err != nil {
+		return err
 	}
 	return nil
 }
